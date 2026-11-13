@@ -1,0 +1,13 @@
+
+/* Toast close (X) button: at the END of the message, vertically centred (Teams-style, no round floating badge).
+   !important because Sonner injects its own top-left badge positioning at runtime. */
+[data-sonner-toaster] [data-sonner-toast] [data-close-button] {
+  position: absolute !important;
+  left: auto !important; right: 8px !important;
+  top: 50% !important; bottom: auto !important;
+  transform: translateY(-50%) !important;
+  width: 24px; height: 24px; border: none !important; border-radius: var(--borderRadiusMedium);
+  background: transparent !important; color: inherit; opacity: .8;
+}
+[data-sonner-toaster] [data-sonner-toast] [data-close-button]:hover { background: var(--colorSubtleBackgroundHover) !important; opacity: 1; }
+[data-sonner-toaster] [data-sonner-toast][data-styled=true] { padding-right: 40px; }

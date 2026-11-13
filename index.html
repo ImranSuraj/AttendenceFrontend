@@ -4,8 +4,41 @@
     <head>
       
       <meta charset="UTF-8" />
-      <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-      <title>Attendence Management System</title>
+      <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover, interactive-widget=resizes-content" />
+      <!-- VAPT hardening: Content-Security-Policy, applied as early in <head> as possible so it
+           governs even this page's own module script tag below, not just later dynamic activity.
+           script-src/object-src/base-uri are the real XSS backstop here (no inline/eval script or
+           plugin content can execute even if a rendering vulnerability existed) — this app has no
+           inline <script> or eval/new Function usage today (confirmed via a full-codebase audit),
+           so 'self' alone doesn't break anything. style-src needs 'unsafe-inline' because this app
+           renders many inline style={{...}} props (real inline style="" attributes at runtime) —
+           without it, every one of those would silently stop applying. connect-src is intentionally
+           permissive (https:/wss: + explicit localhost dev origins) since the real API origin is
+           configured per-environment (VITE_API_BASE_URL) and a static meta tag can't be templated
+           per-deployment the way a real HTTP response header could — tighten this to the exact
+           production API origin once ​known, for stronger exfiltration protection than script-src
+           alone provides. frame-ancestors/sandbox are NOT included: browsers ignore both when
+           delivered via <meta> (CSP spec requires a real HTTP header for those two directives) —
+           clickjacking protection (X-Frame-Options / a real frame-ancestors header) needs to be
+           added at the hosting/reverse-proxy layer, outside this frontend's own reach. -->
+      <meta http-equiv="Content-Security-Policy" content="
+        default-src 'self';
+        script-src 'self';
+        style-src 'self' 'unsafe-inline' https://fonts.googleapis.com;
+        font-src 'self' https://fonts.gstatic.com data:;
+        img-src 'self' data: blob:;
+        frame-src 'self' blob:;
+        connect-src 'self' https: wss: http://localhost:* ws://localhost:*;
+        object-src 'none';
+        base-uri 'self';
+        form-action 'self';
+      " />
+      <title>Employee Connect</title>
+      <link rel="icon" type="image/png" href="/employee-connect.png" />
+      <!-- Installable app (PWA): relative paths, so it works at the site root or under /employee-connect/ -->
+      <link rel="manifest" href="./manifest.webmanifest" />
+      <meta name="theme-color" content="#5B5FC7" />
+      <meta name="mobile-web-app-capable" content="yes" />
       <meta name="description" content="Offers a premium e-commerce platform showcasing authentic Kashmiri handicrafts with seamless browsing, filtering, and secure checkout for luxury buyers." />
       <meta name="robots" content="noindex, nofollow" />
       <style>html, body { height: 100%; margin: 0; } #root { height: 100%; }</style>

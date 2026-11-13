@@ -1,11 +1,23 @@
+/* Fluent (Teams) motion: durations and easing curves come from teams-tokens.css --
+   entrances decelerate (--curveDecelerateMid), hover/press feedback is fast and eases (--curveEasyEase). */
 @keyframes fadeInUp {
-  from { opacity: 0; transform: translateY(12px); }
+  from { opacity: 0; transform: translateY(8px); }
   to { opacity: 1; transform: translateY(0); }
 }
 
 @keyframes popIn {
-  from { opacity: 0; transform: scale(0.9); }
+  from { opacity: 0; transform: scale(0.95); }
   to { opacity: 1; transform: scale(1); }
+}
+
+@keyframes popoverIn {
+  from { opacity: 0; transform: translateY(-4px) scale(0.98); }
+  to { opacity: 1; transform: translateY(0) scale(1); }
+}
+
+@keyframes tabIndicator {
+  from { transform: scaleX(0.4); opacity: 0; }
+  to { transform: scaleX(1); opacity: 1; }
 }
 
 @keyframes pulseDot {
@@ -18,23 +30,35 @@
   100% { background-position: 200% 0; }
 }
 
-.animate-fade-in-up {
-  animation: fadeInUp 0.5s cubic-bezier(0.16, 1, 0.3, 1) both;
+@keyframes dotBounce {
+  0%, 80%, 100% { transform: translateY(0); opacity: 0.5; }
+  40% { transform: translateY(-8px); opacity: 1; }
 }
 
+.animate-fade-in-up {
+  animation: fadeInUp var(--durationGentle) var(--curveDecelerateMid) both;
+}
+
+/* Dialogs: Fluent fades and scales the surface in over 250ms. */
 .animate-pop-in {
-  animation: popIn 0.35s cubic-bezier(0.16, 1, 0.3, 1) both;
+  animation: popIn var(--durationGentle) var(--curveDecelerateMid) both;
+}
+
+/* Dropdown lists, menus, popovers: a quick 100ms drop-in. */
+.teams-popover {
+  animation: popoverIn var(--durationFaster) var(--curveDecelerateMid) both;
 }
 
 .animate-pulse-dot {
   animation: pulseDot 2s ease-out infinite;
 }
 
+/* Teams cards do not float on hover; they gain a deeper shadow instead. */
 .hover-lift {
-  transition: transform 0.2s ease, box-shadow 0.2s ease, border-color 0.2s ease;
+  transition: box-shadow var(--durationFaster) var(--curveEasyEase), border-color var(--durationFaster) var(--curveEasyEase);
 }
 .hover-lift:hover {
-  transform: translateY(-2px);
+  box-shadow: var(--shadow8);
 }
 
 .card-shimmer {
@@ -51,8 +75,13 @@
   pointer-events: none;
 }
 
+.dot-bounce {
+  animation: dotBounce 1.2s ease-in-out infinite;
+}
+
 @media (prefers-reduced-motion: reduce) {
-  .animate-fade-in-up, .animate-pop-in, .animate-pulse-dot, .card-shimmer::after {
+  .animate-fade-in-up, .animate-pop-in, .teams-popover, .animate-pulse-dot, .card-shimmer::after, .dot-bounce,
+  .teams-tablist > button::after {
     animation: none !important;
   }
 }

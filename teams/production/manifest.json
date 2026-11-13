@@ -1,0 +1,50 @@
+{
+    "$schema":  "https://developer.microsoft.com/json-schemas/teams/v1.17/MicrosoftTeams.schema.json",
+    "manifestVersion":  "1.17",
+    "version": "1.0.16",
+    "id":  "88b1d3a0-4ba2-4366-89c9-4a31f8a073fe",
+    "developer":  {
+                      "name":  "TTK Prestige Limited",
+                      "websiteUrl":  "https://amsmock.ttkprestige.in/employee-connect/",
+                      "privacyUrl":  "https://amsmock.ttkprestige.in/employee-connect/",
+                      "termsOfUseUrl":  "https://amsmock.ttkprestige.in/employee-connect/"
+                  },
+    "name":  {
+                 "short":  "Employee Connect",
+                 "full":  "Employee Connect - HR portal"
+             },
+    "description":  {
+                        "short":  "Leave, attendance, meeting rooms and more.",
+                        "full":  "Employee Connect is the TTK Prestige HR portal: apply for leave, check attendance, book meeting rooms (with Outlook and Teams meetings), book doctor appointments and view your documents."
+                    },
+    "icons":  {
+                  "color":  "color.png",
+                  "outline":  "outline.png"
+              },
+    "accentColor":  "#5B5FC7",
+    "isFullScreen":  true,
+    "staticTabs":  [
+                       {
+                           "entityId":  "employeeconnect-home",
+                           "name":  "Employee Connect",
+                           "contentUrl":  "https://amsmock.ttkprestige.in/employee-connect/",
+                           "websiteUrl":  "https://amsmock.ttkprestige.in/employee-connect/",
+                           "scopes":  [
+                                          "personal"
+                                      ]
+                       }
+                   ],
+    "permissions":  [
+                        "identity"
+                    ],
+    "devicePermissions":  [
+                              "geolocation"
+                          ],
+    "validDomains":  [
+                         "amsmock.ttkprestige.in"
+                     ],
+    "webApplicationInfo": {
+    "id": "88b1d3a0-4ba2-4366-89c9-4a31f8a073fe",
+    "resource": "api://amsmock.ttkprestige.in/employee-connect/88b1d3a0-4ba2-4366-89c9-4a31f8a073fe"
+  }
+}

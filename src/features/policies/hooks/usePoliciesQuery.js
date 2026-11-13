@@ -1,14 +1,16 @@
 import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
-import { POLICIES } from "../policies.mock";
-import { getPolicies, addPolicy, updatePolicy } from "../policies.service";
+import { getPolicies, addPolicy, updatePolicy } from "../services/policy.service";
 
 export const POLICIES_QUERY_KEY = ["policies"];
 
+// Real backend list now (dbo.PolicyMaster via spv1_ManagePolicy's GET operation) -- no more
+// seeded-mock initialData, since showing fake demo rows before the real fetch resolves would
+// misrepresent actual DB state.
 export function usePoliciesQuery() {
   return useQuery({
     queryKey: POLICIES_QUERY_KEY,
     queryFn: getPolicies,
-    initialData: POLICIES,
+    initialData: [],
   });
 }
 
@@ -28,9 +30,12 @@ export function usePolicyMutations() {
     onSettled: () => queryClient.invalidateQueries({ queryKey: POLICIES_QUERY_KEY }),
   });
 
+  // No optimistic prepend here -- Add can create anywhere from 0 to MAX_FILE_COUNT rows (one per
+  // attached file), so there's no single "the new row" to fake client-side; just invalidate and
+  // let the real rows arrive from the refetch.
   const addMutation = useMutation({
     mutationFn: (policy) => addPolicy(policy),
-    ...withOptimisticUpdate((old, policy) => [policy, ...old]),
+    onSettled: () => queryClient.invalidateQueries({ queryKey: POLICIES_QUERY_KEY }),
   });
 
   const updateMutation = useMutation({

@@ -1,83 +1,223 @@
 @custom-variant dark (&:is(.dark *));
 
+/* Microsoft Teams look. The raw Fluent UI `teamsLightTheme` / `teamsDarkTheme` tokens live in
+   teams-tokens.css (--colorNeutralBackground1, --borderRadiusMedium, --durationNormal, ...); the semantic
+   variables below -- the ones every component already uses -- are mapped onto them, so the whole app follows
+   Teams' own values and switches with the `.dark` class on <html>. Type is Segoe UI at Teams' sizes, with
+   weights 400 (regular) and 600 (semibold). The sidebar stays a dark surface in BOTH modes because its nav
+   items use hard-coded white text. */
 :root {
   --font-size: 14px;
-  --background: #F5F3F1;
-  --foreground: #1B1917;
-  --card: #FFFFFF;
-  --card-foreground: #1B1917;
-  --popover: #FFFFFF;
-  --popover-foreground: #1B1917;
-  --primary: #9A2F33;
-  --primary-foreground: #FFFFFF;
-  --secondary: #F7ECEC;
-  --secondary-foreground: #9A2F33;
-  --muted: #EDE9E6;
-  --muted-foreground: #6B625D;
-  --accent: #F7ECEC;
-  --accent-foreground: #9A2F33;
-  --destructive: #B3261E;
-  --destructive-foreground: #FFFFFF;
-  --border: rgba(27, 25, 23, 0.11);
+  /* canvas = neutral background 3, cards/popovers = neutral background 1, text = neutral foreground 1,
+     secondary text = neutral foreground 3 */
+  --background: var(--colorNeutralBackground3);
+  --foreground: var(--colorNeutralForeground1);
+  --card: var(--colorNeutralBackground1);
+  --card-foreground: var(--colorNeutralForeground1);
+  --popover: var(--colorNeutralBackground1);
+  --popover-foreground: var(--colorNeutralForeground1);
+  --primary: var(--colorBrandBackground);
+  --primary-foreground: var(--colorNeutralForegroundOnBrand);
+  --secondary: var(--colorBrandBackground2);
+  --secondary-foreground: var(--colorBrandForeground2);
+  --muted: var(--colorNeutralBackground5);
+  --muted-foreground: var(--colorNeutralForeground3);
+  --accent: var(--colorBrandBackground2);
+  --accent-foreground: var(--colorBrandForeground2);
+  --destructive: var(--colorStatusDangerBackground3);
+  --destructive-foreground: var(--colorNeutralForegroundOnBrand);
+  --border: var(--colorNeutralStroke2);
   --input: transparent;
-  --input-background: #F3F0EE;
-  --switch-background: #8A8886;
-  --font-weight-medium: 600;
-  --font-weight-normal: 400;
-  --ring: #9A2F33;
-  --chart-1: #9A2F33;
-  --chart-2: #2F6B45;
-  --chart-3: #8A5A12;
-  --chart-4: #B3261E;
-  --chart-5: #1F6B78;
+  --input-background: var(--colorNeutralBackground1);
+  --switch-background: var(--colorNeutralStrokeAccessible);
+  --font-weight-medium: var(--fontWeightSemibold);   /* Teams uses semibold where a heavier weight is wanted */
+  --font-weight-normal: var(--fontWeightRegular);
+  --font-sans: var(--fontFamilyBase);
+  --font-mono: var(--fontFamilyMonospace);
+  --font-weight-semibold: var(--fontWeightSemibold);
+  --font-weight-bold: var(--fontWeightSemibold);      /* Tailwind's font-bold renders as Teams semibold */
+  --ring: var(--colorBrandStroke1);
+  --chart-1: var(--colorBrandBackground);
+  --chart-2: var(--colorPaletteGreenBackground3);
+  --chart-3: var(--colorPaletteDarkOrangeBackground3);
+  --chart-4: var(--colorStatusDangerBackground3);
+  --chart-5: var(--colorPaletteBlueBackground2);
   --radius: 0.375rem;
-  --sidebar: #1B1A19;
-  --sidebar-foreground: #F3EFEC;
-  --sidebar-primary: #9A2F33;
-  --sidebar-primary-foreground: #FFFFFF;
-  --sidebar-accent: #2A2726;
-  --sidebar-accent-foreground: #F3EFEC;
-  --sidebar-border: rgba(255, 255, 255, 0.08);
-  --sidebar-ring: #9A2F33;
+  /* Left navigation in the style of Outlook, SharePoint and Planner: a white surface on the grey canvas, subtle hover,
+     a brand-tinted selected item. Follows the light/dark tokens automatically. */
+  --sidebar: var(--colorNeutralBackground1);
+  --sidebar-foreground: var(--colorNeutralForeground2);
+  --sidebar-primary: var(--colorBrandBackground);
+  --sidebar-primary-foreground: var(--colorNeutralForegroundOnBrand);
+  --sidebar-accent: var(--colorSubtleBackgroundHover);
+  --sidebar-accent-foreground: var(--colorNeutralForeground1);
+  --sidebar-border: var(--colorNeutralStroke2);
+  --sidebar-ring: var(--colorStrokeFocus2);
 }
 
 .dark {
-  --background: #151413;
-  --foreground: #F3EFEC;
-  --card: #232120;
-  --card-foreground: #F3EFEC;
-  --popover: #232120;
-  --popover-foreground: #F3EFEC;
-  --primary: #E0797D;
-  --primary-foreground: #1B1917;
-  --secondary: #3A2324;
-  --secondary-foreground: #E0797D;
-  --muted: #2A2726;
-  --muted-foreground: #A39A95;
-  --accent: #3A2324;
-  --accent-foreground: #E0797D;
-  --destructive: #E2504A;
-  --destructive-foreground: #1B1917;
-  --border: rgba(255, 255, 255, 0.11);
-  --input: rgba(255, 255, 255, 0.05);
-  --input-background: #2A2726;
-  --switch-background: #6B6B6B;
-  --font-weight-medium: 600;
-  --font-weight-normal: 400;
-  --ring: #E0797D;
-  --chart-1: #E0797D;
-  --chart-2: #7FC194;
-  --chart-3: #D8A95E;
-  --chart-4: #E2504A;
-  --chart-5: #6FB9C4;
-  --sidebar: #1B1A19;
-  --sidebar-foreground: #F3EFEC;
-  --sidebar-primary: #E0797D;
-  --sidebar-primary-foreground: #1B1917;
-  --sidebar-accent: #2A2726;
-  --sidebar-accent-foreground: #F3EFEC;
-  --sidebar-border: rgba(255, 255, 255, 0.06);
-  --sidebar-ring: #E0797D;
+  /* Everything above follows the dark tokens automatically. Only the pieces that are NOT Teams tokens are
+     set here: text is pure white everywhere -- including "muted" secondary text -- per explicit request. */
+  --muted-foreground: #FFFFFF;
+  --secondary-foreground: #FFFFFF;
+  --accent-foreground: #FFFFFF;
+}
+/* Fluent palette for the Tailwind colour classes (text-green-600, bg-red-50, border-blue-300, ...) that
+   components use directly: each family is remapped to the matching Microsoft Fluent UI shared colour --
+   red = cranberry, green, blue, orange, teal, purple, yellow = gold, amber = marigold, indigo = the
+   Teams brand purple, gray/slate = the Fluent neutral greys. Colours only; class names are unchanged. */
+:root {
+  --color-red-900: #6e0811;
+  --color-red-800: #960b18;
+  --color-red-700: #b10e1c;
+  --color-red-600: #c50f1f;
+  --color-red-500: #cc2635;
+  --color-red-400: #d33f4c;
+  --color-red-300: #dc626d;
+  --color-red-200: #eeacb2;
+  --color-red-100: #f6d1d5;
+  --color-red-50: #fdf3f4;
+  --color-green-900: #094509;
+  --color-green-800: #0c5e0c;
+  --color-green-700: #0e700e;
+  --color-green-600: #107c10;
+  --color-green-500: #218c21;
+  --color-green-400: #359b35;
+  --color-green-300: #54b054;
+  --color-green-200: #9fd89f;
+  --color-green-100: #c9eac9;
+  --color-green-50: #f1faf1;
+  --color-blue-900: #004377;
+  --color-blue-800: #005ba1;
+  --color-blue-700: #006cbf;
+  --color-blue-600: #0078d4;
+  --color-blue-500: #1a86d9;
+  --color-blue-400: #3595de;
+  --color-blue-300: #5caae5;
+  --color-blue-200: #a9d3f2;
+  --color-blue-100: #d0e7f8;
+  --color-blue-50: #f3f9fd;
+  --color-sky-900: #004377;
+  --color-sky-800: #005ba1;
+  --color-sky-700: #006cbf;
+  --color-sky-600: #0078d4;
+  --color-sky-500: #1a86d9;
+  --color-sky-400: #3595de;
+  --color-sky-300: #5caae5;
+  --color-sky-200: #a9d3f2;
+  --color-sky-100: #d0e7f8;
+  --color-sky-50: #f3f9fd;
+  --color-orange-900: #8a3707;
+  --color-orange-800: #bc4b09;
+  --color-orange-700: #de590b;
+  --color-orange-600: #f7630c;
+  --color-orange-500: #f87528;
+  --color-orange-400: #f98845;
+  --color-orange-300: #faa06b;
+  --color-orange-200: #fdcfb4;
+  --color-orange-100: #fee5d7;
+  --color-orange-50: #fff9f5;
+  --color-yellow-900: #6c5700;
+  --color-yellow-800: #937700;
+  --color-yellow-700: #ae8c00;
+  --color-yellow-600: #c19c00;
+  --color-yellow-500: #c8a718;
+  --color-yellow-400: #d0b232;
+  --color-yellow-300: #dac157;
+  --color-yellow-200: #ecdfa5;
+  --color-yellow-100: #f5eece;
+  --color-yellow-50: #fdfbf2;
+  --color-amber-900: #835b00;
+  --color-amber-800: #b27c00;
+  --color-amber-700: #d39300;
+  --color-amber-600: #eaa300;
+  --color-amber-500: #edad1c;
+  --color-amber-400: #efb839;
+  --color-amber-300: #f2c661;
+  --color-amber-200: #f9e2ae;
+  --color-amber-100: #fcefd3;
+  --color-amber-50: #fefbf4;
+  --color-teal-900: #02494c;
+  --color-teal-800: #026467;
+  --color-teal-700: #037679;
+  --color-teal-600: #038387;
+  --color-teal-500: #159195;
+  --color-teal-400: #2aa0a4;
+  --color-teal-300: #4cb4b7;
+  --color-teal-200: #9bd9db;
+  --color-teal-100: #c7ebec;
+  --color-teal-50: #f0fafa;
+  --color-purple-900: #341a51;
+  --color-purple-800: #46236e;
+  --color-purple-700: #532982;
+  --color-purple-600: #5c2e91;
+  --color-purple-500: #6b3f9e;
+  --color-purple-400: #7c52ab;
+  --color-purple-300: #9470bd;
+  --color-purple-200: #c6b1de;
+  --color-purple-100: #e0d3ed;
+  --color-purple-50: #f7f4fb;
+  --color-indigo-900: #383966;
+  --color-indigo-800: #444791;
+  --color-indigo-700: #4f52b2;
+  --color-indigo-600: #5b5fc7;
+  --color-indigo-500: #7579eb;
+  --color-indigo-400: #7f85f5;
+  --color-indigo-300: #aab1fa;
+  --color-indigo-200: #c5cbfa;
+  --color-indigo-100: #dce0fa;
+  --color-indigo-50: #e8ebfa;
+  --color-gray-900: #1f1f1f;
+  --color-gray-800: #292929;
+  --color-gray-700: #424242;
+  --color-gray-600: #616161;
+  --color-gray-500: #8f8f8f;
+  --color-gray-400: #adadad;
+  --color-gray-300: #cccccc;
+  --color-gray-200: #e0e0e0;
+  --color-gray-100: #f5f5f5;
+  --color-gray-50: #fafafa;
+  --color-slate-900: #1f1f1f;
+  --color-slate-800: #292929;
+  --color-slate-700: #424242;
+  --color-slate-600: #616161;
+  --color-slate-500: #8f8f8f;
+  --color-slate-400: #adadad;
+  --color-slate-300: #cccccc;
+  --color-slate-200: #e0e0e0;
+  --color-slate-100: #f5f5f5;
+  --color-slate-50: #fafafa;
+}
+
+/* Dark mode: ALL text is white, no exceptions (explicit request) -- covers token-based classes,
+   hard-coded Tailwind palette colors (text-green-300, text-[#6264A7], ...), inline style colors,
+   currentColor icons, and browser-default placeholder grey. Unlayered + !important so it wins
+   over every utility. `.dark` is also put on <html> by App.jsx so portaled popups
+   (SearchableSelect, DatePickerCalendar, toasts) rendered straight into <body> are covered. */
+.dark {
+  color-scheme: dark;
+}
+/* Conference calendar cell colours. Light: pastel fill + dark text. Dark mode forces ALL text white (rule
+   below), so the fills must be dark there or the text on them is invisible. */
+:root {
+  --cal-past-bg: #EBEBEB;      --cal-past-fg: #616161;
+  --cal-available-bg: #DFF6DD; --cal-available-fg: #0E700E;
+  --cal-booked-bg: #FDE7E9;    --cal-booked-fg: #B10E1C;
+}
+.dark {
+  --cal-past-bg: #3D3D3D;      --cal-past-fg: #8A8A8A;
+  --cal-available-bg: #1E4620; --cal-available-fg: #6CCB5F;
+  --cal-booked-bg: #5C1F26;    --cal-booked-fg: #FF99A4;
+}
+.dark,
+.dark *,
+.dark *::before,
+.dark *::after {
+  color: #FFFFFF !important;
+}
+.dark ::placeholder {
+  color: #FFFFFF !important;
+  opacity: 1;
 }
 
 @theme inline {
@@ -107,10 +247,10 @@
   --color-chart-3: var(--chart-3);
   --color-chart-4: var(--chart-4);
   --color-chart-5: var(--chart-5);
-  --radius-sm: calc(var(--radius) - 4px);
-  --radius-md: calc(var(--radius) - 2px);
-  --radius-lg: var(--radius);
-  --radius-xl: calc(var(--radius) + 4px);
+  --radius-sm: var(--borderRadiusSmall);    /* 2px */
+  --radius-md: var(--borderRadiusMedium);   /* 4px */
+  --radius-lg: var(--borderRadiusLarge);    /* 6px */
+  --radius-xl: var(--borderRadiusXLarge);   /* 8px */
   --color-sidebar: var(--sidebar);
   --color-sidebar-foreground: var(--sidebar-foreground);
   --color-sidebar-primary: var(--sidebar-primary);
@@ -128,7 +268,8 @@
 
   body {
     @apply bg-background text-foreground;
-    font-family: "IBM Plex Sans", "Segoe UI", system-ui, sans-serif;
+    font-family: var(--font-sans);
+    line-height: 1.4286;   /* Fluent body: 14px text on a 20px line */
   }
 
   html {
@@ -165,9 +306,11 @@
     line-height: 1.5;
   }
 
+  /* Fluent: plain buttons, menu items, nav items and dropdown rows are regular (400); only emphasised controls
+     (the Btn component, a selected tab, headings) are semibold, and they say so explicitly. */
   button {
     font-size: var(--text-base);
-    font-weight: var(--font-weight-medium);
+    font-weight: var(--font-weight-normal);
     line-height: 1.5;
   }
 
@@ -185,10 +328,214 @@
     background: transparent;
   }
   ::-webkit-scrollbar-thumb {
-    background: rgba(0,0,0,0.2);
-    border-radius: 3px;
+    background: rgba(0,0,0,0.28);
+    border-radius: 4px;
   }
   ::-webkit-scrollbar-thumb:hover {
-    background: rgba(0,0,0,0.35);
+    background: rgba(0,0,0,0.45);
   }
 }
+
+/* ---------------------------------------------------------------------------------------------
+   Microsoft Teams (Fluent UI) details, applied app-wide -- unlayered on purpose so they win over the
+   Tailwind utilities individual components use. Values come from teams-tokens.css.
+   --------------------------------------------------------------------------------------------- */
+
+/* Type scale = Fluent's: caption 12 / body 14 / subtitle 16 / title 20 / 24 / 28, with Fluent's line heights.
+   html is 14px, so these are rem of 14px. */
+:root {
+  --text-xs: 0.8571rem;   --text-xs--line-height: 1.3333;   /* 12 / 16 */
+  --text-sm: 1rem;        --text-sm--line-height: 1.4286;   /* 14 / 20 */
+  --text-base: 1rem;      --text-base--line-height: 1.4286; /* 14 / 20 */
+  --text-lg: 1.1429rem;   --text-lg--line-height: 1.375;    /* 16 / 22 */
+  --text-xl: 1.4286rem;   --text-xl--line-height: 1.4;      /* 20 / 28 */
+  --text-2xl: 1.7143rem;  --text-2xl--line-height: 1.3333;  /* 24 / 32 */
+  --text-3xl: 2rem;       --text-3xl--line-height: 1.2857;  /* 28 / 36 */
+
+  /* Fluent elevation and corner radii, straight from the tokens. */
+  --shadow-sm: var(--shadow2);
+  --shadow-md: var(--shadow4);
+  --shadow-lg: var(--shadow8);
+  --shadow-xl: var(--shadow16);
+  --shadow-2xl: var(--shadow64);
+
+  /* Fluent motion: hover/press feedback is fast (100ms) on the "easy ease" curve. */
+  --default-transition-duration: var(--durationFaster);
+  --default-transition-timing-function: var(--curveEasyEase);
+}
+
+/* Links, placeholders, selection. */
+a { color: var(--colorBrandForegroundLink); }
+::placeholder { color: var(--colorNeutralForeground4); opacity: 1; }
+::selection { background: var(--colorBrandBackground2); color: var(--colorNeutralForeground1); }
+
+/* Keyboard focus: Fluent's 2px focus outline (black in light, white in dark). */
+:focus-visible { outline: 2px solid var(--colorStrokeFocus2); outline-offset: 1px; }
+
+/* Text fields and dropdowns (Fluent Input / Dropdown): 32px, 4px corners, a light border with a darker bottom
+   edge, and on focus a 2px brand line along the bottom instead of a ring. */
+input:not([type="checkbox"]):not([type="radio"]):not([type="range"]):not([type="file"]):not([type="color"]):not([type="button"]):not([type="submit"]),
+select,
+textarea {
+  border-radius: var(--borderRadiusMedium);
+  border-color: var(--colorNeutralStroke1);
+  border-bottom-color: var(--colorNeutralStrokeAccessible);
+  color: var(--colorNeutralForeground1);
+  transition: border-color var(--durationFaster) var(--curveEasyEase), box-shadow var(--durationFaster) var(--curveEasyEase);
+}
+input:not([type="checkbox"]):not([type="radio"]):not([type="range"]):not([type="file"]):not([type="color"]):not([type="button"]):not([type="submit"]):hover,
+select:hover,
+textarea:hover {
+  border-color: var(--colorNeutralStroke1Hover);
+  border-bottom-color: var(--colorNeutralStrokeAccessibleHover);
+}
+input:not([type="checkbox"]):not([type="radio"]):not([type="range"]):not([type="file"]):not([type="color"]):not([type="button"]):not([type="submit"]):focus,
+select:focus,
+textarea:focus {
+  outline: none;
+  border-bottom-color: var(--colorCompoundBrandStroke);
+  box-shadow: inset 0 -1px 0 0 var(--colorCompoundBrandStroke);
+}
+input:disabled, select:disabled, textarea:disabled {
+  background: var(--colorNeutralBackgroundDisabled);
+  color: var(--colorNeutralForegroundDisabled);
+  border-color: var(--colorNeutralStrokeDisabled);
+}
+/* Native select drawn like a Fluent Dropdown: chevron on the right. */
+select {
+  appearance: none;
+  padding-right: 28px;
+  background-repeat: no-repeat;
+  background-position: right 8px center;
+  background-size: 12px 12px;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 12 12' fill='none'%3E%3Cpath d='M2.2 4.2a.75.75 0 0 1 1.06 0L6 6.94l2.74-2.74a.75.75 0 1 1 1.06 1.06L6.53 8.53a.75.75 0 0 1-1.06 0L2.2 5.26a.75.75 0 0 1 0-1.06Z' fill='%23616161'/%3E%3C/svg%3E");
+}
+.dark select {
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 12 12' fill='none'%3E%3Cpath d='M2.2 4.2a.75.75 0 0 1 1.06 0L6 6.94l2.74-2.74a.75.75 0 1 1 1.06 1.06L6.53 8.53a.75.75 0 0 1-1.06 0L2.2 5.26a.75.75 0 0 1 0-1.06Z' fill='%23ffffff'/%3E%3C/svg%3E");
+}
+
+/* Checkbox and radio (Fluent): 16px, 2px / round corners, brand fill when on. */
+input[type="checkbox"], input[type="radio"] {
+  appearance: none;
+  width: 16px; height: 16px; flex-shrink: 0;
+  border: 1px solid var(--colorNeutralStrokeAccessible);
+  background-color: var(--colorNeutralBackground1);
+  background-repeat: no-repeat; background-position: center;
+  cursor: pointer;
+  transition: background-color var(--durationFaster) var(--curveEasyEase), border-color var(--durationFaster) var(--curveEasyEase);
+}
+input[type="checkbox"] { border-radius: var(--borderRadiusSmall); }
+input[type="radio"] { border-radius: 50%; }
+input[type="checkbox"]:hover, input[type="radio"]:hover { border-color: var(--colorNeutralStrokeAccessibleHover); }
+input[type="checkbox"]:checked {
+  background-color: var(--colorCompoundBrandBackground);
+  border-color: var(--colorCompoundBrandBackground);
+  background-size: 12px 12px;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 12 12' fill='none'%3E%3Cpath d='M9.76 3.2c.3.29.32.76.04 1.06l-4.25 4.5a.75.75 0 0 1-1.08.02L2.22 6.53a.75.75 0 0 1 1.06-1.06l1.7 1.7 3.72-3.93c.29-.3.76-.32 1.06-.04Z' fill='%23ffffff'/%3E%3C/svg%3E");
+}
+input[type="radio"]:checked {
+  border-color: var(--colorCompoundBrandStroke);
+  background-image: radial-gradient(circle, var(--colorCompoundBrandForeground1) 0 4px, transparent 4.5px);
+}
+input[type="checkbox"]:disabled, input[type="radio"]:disabled { opacity: 0.5; cursor: not-allowed; }
+
+/* Dropdown trigger built from a <button> (SearchableSelect): same field look as inputs/selects. */
+.teams-field {
+  border: 1px solid var(--colorNeutralStroke1);
+  border-bottom-color: var(--colorNeutralStrokeAccessible);
+  border-radius: var(--borderRadiusMedium);
+  min-height: 32px;
+  background: var(--colorNeutralBackground1);
+  color: var(--colorNeutralForeground1);
+  font-weight: var(--fontWeightRegular);
+  transition: border-color var(--durationFaster) var(--curveEasyEase), box-shadow var(--durationFaster) var(--curveEasyEase);
+}
+.teams-field:hover { border-color: var(--colorNeutralStroke1Hover); border-bottom-color: var(--colorNeutralStrokeAccessibleHover); }
+.teams-field:focus, .teams-field[aria-expanded="true"] {
+  outline: none;
+  border-bottom-color: var(--colorCompoundBrandStroke);
+  box-shadow: inset 0 -1px 0 0 var(--colorCompoundBrandStroke);
+}
+
+/* Fluent TabList: plain tabs, semibold when selected, with a 2px brand line under the selected one. The pages
+   mark their selected tab with a `shadow` utility, which is what the selector below keys on. */
+.teams-tablist { display: flex; gap: 4px; background: transparent; padding: 0; border-radius: 0; }
+.teams-tablist > button {
+  position: relative;
+  background: transparent;
+  box-shadow: none;
+  border: 0;
+  border-radius: var(--borderRadiusMedium);
+  padding: 6px 12px;
+  color: var(--colorNeutralForeground2);
+  font-weight: var(--fontWeightRegular);
+  transition: background-color var(--durationFaster) var(--curveEasyEase), color var(--durationFaster) var(--curveEasyEase);
+}
+.teams-tablist > button:hover { background: var(--colorSubtleBackgroundHover); color: var(--colorNeutralForeground1); }
+.teams-tablist > button:active { background: var(--colorSubtleBackgroundPressed); }
+.teams-tablist > button[class~="shadow"], .teams-tablist > button[class~="shadow-sm"] {
+  color: var(--colorNeutralForeground1);
+  font-weight: var(--fontWeightSemibold);
+}
+.teams-tablist > button[class~="shadow"]::after, .teams-tablist > button[class~="shadow-sm"]::after {
+  content: ""; position: absolute; left: 12px; right: 12px; bottom: 0; height: 2px; border-radius: 1px;
+  background: var(--colorCompoundBrandStroke);
+  animation: tabIndicator var(--durationNormal) var(--curveDecelerateMid) both;
+}
+
+/* Native <select> popups drawn like the Fluent Dropdown list (Chrome 135+; other browsers keep the system list,
+   with the field above still styled): rounded surface with shadow16, 4px option rows, hover/selected states and a
+   brand-coloured check mark. */
+@supports (appearance: base-select) {
+  select,
+  ::picker(select) { appearance: base-select; }
+  select {
+    display: inline-flex; align-items: center; justify-content: space-between; gap: 8px;
+    background-image: none;
+    padding-right: 8px;
+  }
+  /* The Fluent chevron, drawn as a mask so it takes the text colour in both themes. */
+  select::picker-icon {
+    content: "";
+    width: 12px; height: 12px;
+    background-color: var(--colorNeutralForeground3);
+    -webkit-mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 12 12'%3E%3Cpath d='M2.2 4.2a.75.75 0 0 1 1.06 0L6 6.94l2.74-2.74a.75.75 0 1 1 1.06 1.06L6.53 8.53a.75.75 0 0 1-1.06 0L2.2 5.26a.75.75 0 0 1 0-1.06Z'/%3E%3C/svg%3E") center / contain no-repeat;
+    mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 12 12'%3E%3Cpath d='M2.2 4.2a.75.75 0 0 1 1.06 0L6 6.94l2.74-2.74a.75.75 0 1 1 1.06 1.06L6.53 8.53a.75.75 0 0 1-1.06 0L2.2 5.26a.75.75 0 0 1 0-1.06Z'/%3E%3C/svg%3E") center / contain no-repeat;
+    transition: rotate var(--durationFaster) var(--curveEasyEase);
+  }
+  select:open::picker-icon { rotate: 180deg; }
+  ::picker(select) {
+    box-sizing: border-box;
+    border: 1px solid var(--colorTransparentStroke);
+    border-radius: var(--borderRadiusMedium);
+    background: var(--colorNeutralBackground1);
+    box-shadow: var(--shadow16);
+    padding: 4px;
+    margin-block: 2px;
+    max-height: 320px;
+    font-family: var(--font-sans);
+  }
+  select option {
+    display: flex; align-items: center; gap: 8px;
+    padding: 6px 8px;
+    border-radius: var(--borderRadiusMedium);
+    font-size: 14px; line-height: 20px;
+    color: var(--colorNeutralForeground1);
+    cursor: pointer;
+  }
+  select option:hover, select option:focus-visible { background: var(--colorNeutralBackground1Hover); outline: none; }
+  select option:active { background: var(--colorNeutralBackground1Pressed); }
+  select option:checked { font-weight: var(--fontWeightRegular); }   /* Fluent marks the chosen option with the check mark, not bold */
+  select option::checkmark { color: var(--colorCompoundBrandForeground1); }
+  select option:disabled { color: var(--colorNeutralForegroundDisabled); cursor: not-allowed; }
+  ::picker(select):popover-open { animation: popoverIn var(--durationFaster) var(--curveDecelerateMid) both; }
+}
+
+/* Fields in an error state (the pages add the border-destructive utility) keep their red border. */
+input[class*="border-destructive"], select[class*="border-destructive"], textarea[class*="border-destructive"],
+.teams-field[class*="border-destructive"] {
+  border-color: var(--destructive) !important;
+}
+
+/* Compact field captions (Fluent caption: 12px regular). Form-field labels (text-sm) stay semibold. */
+label[class~="text-xs"] { font-weight: var(--fontWeightRegular); }
